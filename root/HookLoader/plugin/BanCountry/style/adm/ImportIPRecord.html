@@ -1,0 +1,26 @@
+<h2>IPアドレスレコードのデータベースに関して</h2>
+<p>
+BanCountry は PHPパッケージ である IPtoCountry [PHP] を利用しています。<br />
+IPtoCountry [PHP] は SQLiteデータベースファイル IPtoCountry.db を利用しています。<br />
+IPtoCountry.db は Hakellパッケージ IPtoCountry [Haskell] を利用して作成されています。<br />
+よってもし IPtoCountry.db を最新のデータにしたい場合、IPtoCountry [Haskell] を利用できる環境が必要です。<br />
+IPtoCountry [Haskell] は UNIX系OS 上で利用できます（32bit版Ubuntu で動作確認済み）。<br />
+もし動作しない場合は Haskellコンパイラ(v.7.4.2) で IPtoCountry [Haskell] の Haskellソースコード をコンパイルしてください。<br />
+詳しくは <a href="http://bbmods.info/bbs/">Ocean Labo</a> でご質問ください。
+</p>
+
+<h2>IPtoCountry [Haskell] に関して</h2>
+<p>
+IPtoCountry [Haskell] は下記の RIR 情報に基づいて SQLiteデータベースファイル IPtoCountry.db を作成しています。<br />
+最新の IPtoCountry.db を作成するには下記 RIR 情報をテキストファイル .txt にコピー＆ペーストして IPtoCountry [Haskell] パッケージ直下の RIR ディレクトリに保存してください。<br />
+その上でコマンドライン上で <br />
+<code>$ ./iptocountry import IPtoCountry.db RIR</code> <br />
+と打ち込むことで SQLiteデータベースファイル IPtoCountry.db が作成されます。<br />
+</p>
+
+<h2>RIR(地域インターネットレジストリ)情報</h2>
+[afrinic] <a href="ftp://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-latest">ftp://ftp.afrinic.net/pub/stats/afrinic/delegated-afrinic-latest</a> <br />
+[apnic] <a href="ftp://ftp.apnic.net/pub/stats/apnic/delegated-apnic-latest">ftp://ftp.apnic.net/pub/stats/apnic/delegated-apnic-latest</a> <br />
+[arin] <a href="ftp://ftp.arin.net/pub/stats/arin/delegated-arin-latest">ftp://ftp.arin.net/pub/stats/arin/delegated-arin-latest</a> <br />
+[lacnic] <a href="ftp://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-latest">ftp://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-latest</a> <br />
+[ripencc] <a href="ftp://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest">ftp://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest</a> <br />

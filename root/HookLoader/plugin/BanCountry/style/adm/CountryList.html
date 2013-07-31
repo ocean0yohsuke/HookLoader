@@ -1,0 +1,60 @@
+<!-- IF S_ERROR -->
+<div class="errorbox">
+<h3>{L_WARNING}</h3>
+<p>{ERROR_MSG}</p>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_NOTICE -->
+<div class="errorbox notice">
+	<h3>{L_INFORMATION}</h3>
+	<p>{NOTICE_MSG}</p>
+</div>
+<!-- ENDIF -->
+
+<form method="post" action="{U_ACTION}">
+<fieldset>
+	<legend>{L_COUNTRYLIST_LISTTYPE}</legend>
+	<dl>
+		<dt><label for="listType">{L_LISTTYPE}:</label><br /><span>{L_LISTTYPE_EXPLAIN}</span></dt>
+		<dd><label><input type="radio" id="listType" name="listType" value="1" class="radio" <!-- IF LISTTYPE_VALUE eq 1 -->checked="checked"<!-- ENDIF --> /> {L_ALLOW}</label>	
+		<label><input type="radio" id="listType" name="listType" value="0" class="radio" <!-- IF LISTTYPE_VALUE eq 0 -->checked="checked"<!-- ENDIF --> /> {L_DENY}</label></dd>
+	</dl>	
+	<p class="submit-buttons">
+		<input class="button1" type="submit" name="submit_listType" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" name="reset_listType" value="{L_RESET}" />
+	</p>
+</fieldset>
+</form>
+
+<form method="post" action="{U_ACTION}">
+<fieldset>
+	<legend>{L_COUNTRYLIST_ADD}</legend>
+	<dl>
+		<dt><label for="countryList">{L_ISO_3166_2}:</label><br /><span>{L_ISO_3166_2_EXPLAIN}</span></dt>
+		<dd><textarea id="countryList" name="countryList" cols="40" rows="3"></textarea></dd>
+	</dl>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" name="submit_add" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" name="reset_add" value="{L_RESET}" />
+	</p>
+</fieldset>
+</form>
+
+<form method="post" action="{U_ACTION}">
+<fieldset>
+	<legend>{L_COUNTRYLIST_DELETE}</legend>
+	<dl>
+		<dt><label for="countryList">{L_COUNTRYLIST}:</label><br /><span>{L_COUNTRYLIST_EXPLAIN}</span></dt>
+		<dd><select id="countryList" name="countryList[]" multiple="multiple" size="10" style="width: 50%" >
+			<!-- BEGIN country -->
+			<option value="{country.NAME}">&nbsp;{country.NAME}</option>
+			<!-- END country -->
+		</select></dd>
+	</dl>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit_delete" name="submit_del" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset_delete" name="reset_del" value="{L_RESET}" />
+	</p>
+</fieldset>
+</form>

@@ -1,0 +1,89 @@
+<!-- IF S_MODE eq 'intro' -->
+<p>{L_USERLIST_INTRO_EXPLAIN}</p>
+<form action="{U_ACTION}" method="post">
+	<input type="submit" value="{L_SUBMIT}" name="submit_mode"  class="button2">
+	<input type="hidden" name="mode" value="run" />
+</form>
+
+<!-- ELSEIF S_MODE eq 'run' -->
+<div id="list">
+<form action="{U_ACTION}#list" method="post">
+<ul style="list-style:none; margin:0;">
+	<li>
+		{L_USERLIST_CC} : 
+		<label><input type="checkbox" name="otherthan_country" class="radio" <!-- IF S_OTHERTHAN_COUNTRY -->checked="checked"<!-- ENDIF -->> {L_USERLIST_OTHERTHAN}</label>
+		<input type="text" name="user_country" value="{USER_COUNTRY}"></input>&nbsp;
+		<input type="submit" value="{L_SUBMIT}" name="submit_country" class="button2">&nbsp;
+		<input type="reset" class="button2">
+	</li>
+	<li>
+		<!-- IF COUNTRYLISTTYPE eq '' --><span style="font-size: 1.2em;">○</span><!-- ELSE --><a href="{COUNTRYLISTTYPE_URL}&amp;COUNTRYLISTTYPE=#list"><span style="font-size: 1.2em;">●</span></a><!-- ENDIF -->&nbsp;
+		<strong style="font-size: 0.95em;">
+		<!-- IF COUNTRYLISTTYPE eq '0' --><span style="color: #cc3300;">{L_USERLIST_BANNED_USERS}</span><!-- ELSE --><a href="{COUNTRYLISTTYPE_URL}&amp;countryListType=0#list">{L_USERLIST_BANNED_USERS}</a><!-- ENDIF -->&nbsp;
+		</strong>／<strong style="font-size: 0.95em;">
+		<!-- IF COUNTRYLISTTYPE eq '1' --><span style="color: #cc3300;" style="color: #cc3300;">{L_USERLIST_ALLOWED_USERS}</span><!-- ELSE --><a href="{COUNTRYLISTTYPE_URL}&amp;countryListType=1#list">{L_USERLIST_ALLOWED_USERS}</a><!-- ENDIF -->
+		</strong>
+	</li>
+	<li>
+		<!-- IF FIRST_CHAR eq '' --><span style="font-size: 1.2em;">○</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=#list"><span style="font-size: 1.2em;">●</span></a><!-- ENDIF -->&nbsp;
+		<strong style="font-size: 0.95em;">
+		<!-- IF FIRST_CHAR eq 'a' --><span style="color: #cc3300;">A</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=a#list">A</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'b' --><span style="color: #cc3300;">B</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=b#list">B</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'c' --><span style="color: #cc3300;">C</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=c#list">C</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'd' --><span style="color: #cc3300;">D</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=d#list">D</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'e' --><span style="color: #cc3300;">E</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=e#list">E</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'f' --><span style="color: #cc3300;">F</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=f#list">F</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'g' --><span style="color: #cc3300;">G</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=g#list">G</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'h' --><span style="color: #cc3300;">H</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=h#list">H</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'i' --><span style="color: #cc3300;">I</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=i#list">I</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'j' --><span style="color: #cc3300;">J</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=j#list">J</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'k' --><span style="color: #cc3300;">K</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=k#list">K</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'l' --><span style="color: #cc3300;">L</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=l#list">L</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'm' --><span style="color: #cc3300;">M</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=m#list">M</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'n' --><span style="color: #cc3300;">N</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=n#list">N</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'o' --><span style="color: #cc3300;">O</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=o#list">O</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'p' --><span style="color: #cc3300;">P</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=p#list">P</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'q' --><span style="color: #cc3300;">Q</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=q#list">Q</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'r' --><span style="color: #cc3300;">R</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=r#list">R</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 's' --><span style="color: #cc3300;">S</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=s#list">S</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 't' --><span style="color: #cc3300;">T</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=t#list">T</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'u' --><span style="color: #cc3300;">U</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=u#list">U</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'v' --><span style="color: #cc3300;">V</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=v#list">V</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'w' --><span style="color: #cc3300;">W</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=w#list">W</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'x' --><span style="color: #cc3300;">X</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=x#list">X</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'y' --><span style="color: #cc3300;">Y</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=u#list">Y</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'z' --><span style="color: #cc3300;">Z</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=z#list">Z</a><!-- ENDIF -->&nbsp; 
+		<!-- IF FIRST_CHAR eq 'other' --><span style="color: #cc3300;">#</span><!-- ELSE --><a href="{FIRST_CHAR_URL}&amp;first_char=other#list">#</a><!-- ENDIF -->&nbsp; 
+		</strong>
+	</li>
+	<li class="rightside pagination">{TOTAL_USERS} &bull; <!-- IF PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE -->{PAGE_NUMBER}<!-- ENDIF --></li>
+</ul>
+</form>
+
+<table>
+	<tr>
+		<th style="width: 25%;"><span style="float: right;"><a href="{U_SORT_RANK}#list">{L_RANK}</a></span><a href="{U_SORT_USERNAME}#list">{L_USERNAME}</a></th>
+		<th style="width: 10%; text-align: center;">{L_USERLIST_CC}</th>
+		<th style="width: 15%; text-align: center;"><a href="{U_SORT_IP}#list">{L_USERLIST_REGISTRATIONIP}</a></th>
+		<th style="width: 10%; text-align: center;"><a href="{U_SORT_POSTS}#list">{L_USERLIST_POSTS}</a></th>
+		<th style="width: 20%; text-align: center;"><a href="{U_SORT_JOINED}#list">{L_USERLIST_JOINED}</a></th>
+		<th style="width: 20%; text-align: center;"><a href="{U_SORT_VISITED}#list">{L_USERLIST_VISITED}</a></th>
+		
+	</tr>
+	<!-- BEGIN users -->
+	<tr>
+		<td style="border-right: thin solid;"><!-- IF users.RANK_IMG --><span style="float: right;">{users.RANK_IMG}</span><!-- ELSE --><span style="float: right;">{users.RANK_TITLE}</span><!-- ENDIF -->{users.USERNAME_FULL}</td>
+		<td style="border-right: thin solid; text-align: center;"><a href="{users.U_USER_COUNTRY}#list">{users.COUNTRY}</a></td>
+		<td style="border-right: thin solid; text-align: center;"><a href="{users.U_USER_IP}"" onclick="popup(this.href, 700, 500, '_whois'); return false;">{users.IP}</a></td>
+		<td style="border-right: thin solid; text-align: center;">{users.POSTS}</td>
+		<td style="border-right: thin solid; text-align: center;">{users.JOINED}</td>
+		<td style="text-align: center;">{users.VISITED}</td>
+		
+	</tr>
+	<!-- END users -->
+</table>
+<ul style="list-style:none; margin:0;">
+	<li class="rightside pagination">{TOTAL_USERS} &bull; <!-- IF PAGINATION --><a href="#" onclick="jumpto(); return false;" title="{L_JUMP_TO_PAGE}">{PAGE_NUMBER}</a> &bull; <span>{PAGINATION}</span><!-- ELSE -->{PAGE_NUMBER}<!-- ENDIF --></li>
+</ul>
+</div>
+<!-- ENDIF -->

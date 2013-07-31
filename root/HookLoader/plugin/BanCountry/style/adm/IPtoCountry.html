@@ -1,0 +1,55 @@
+<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF S_NOTICE -->
+	<div class="errorbox notice">
+		<p>{NOTICE_MSG}</p>
+	</div>
+<!-- ENDIF -->
+
+<p>
+<form method="post" action="{U_ACTION}">
+	{L_IPTOCOUNTRY_IPADDRESS}: <input type="text" name="ip" maxlength="100" value="<!-- IF IPADDRESS -->{IPADDRESS}<!-- ENDIF -->"></input>&nbsp;
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+</form>
+{L_IPTOCOUNTRY_CC}: <!-- IF RESULT_COUNTRY -->{RESULT_COUNTRY}<!-- ENDIF -->
+</p>
+
+<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>Registry</th>
+		<th>CC</th>
+		<th>Type</th>
+		<th>Start</th>
+		<th>Value</th>
+		<th>Date</th>
+	</tr>
+	</thead>
+<!-- BEGIN iprecords -->
+	<tr>
+		<td>{iprecords.REGISTRY}</td>
+		<td>{iprecords.CC}</td>
+		<td>{iprecords.TYPE}</td>
+		<td>{iprecords.START}</td>
+		<td>{iprecords.VALUE}</td>
+		<td>{iprecords.DATE}</td>
+	</tr>
+<!-- END IPRecords -->
+	</tbody>
+</table>
+<div class="pagination">
+	<!-- IF TOTAL_RECORDS -->{TOTAL_RECORDS} 件 <!-- ENDIF -->
+	<!-- IF PAGE_NUMBER -->
+		<!-- IF PAGINATION -->
+		 &bull; {PAGE_NUMBER} &bull; <span>{PAGINATION}</span>
+		<!-- ELSE -->
+		 &bull; {PAGE_NUMBER}
+		<!-- ENDIF -->
+	<!-- ENDIF -->
+</div>

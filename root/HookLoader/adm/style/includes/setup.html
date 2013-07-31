@@ -1,0 +1,17 @@
+<!-- IF S_ERROR -->
+<div class="errorbox">
+<h3>{L_WARNING}</h3>
+<p>{ERROR_MSG}</p>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_SETUPMODE eq 'intro' -->
+	<!-- INCLUDE includes/setup/intro.html -->
+<!-- ELSEIF S_SETUPMODE eq 'run' -->
+	<!-- INCLUDE includes/setup/run.html -->
+<!-- ELSE -->
+<div class="errorbox">
+<h3>{L_WARNING}</h3>
+	<p>Sidemenu "{S_SIDEMENU}" is invalid or empty.</p>
+</div>
+<!-- ENDIF -->

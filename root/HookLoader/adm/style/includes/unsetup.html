@@ -1,0 +1,10 @@
+<!-- IF S_UNSETUPMODE eq 'intro' -->
+	<!-- INCLUDE includes/unsetup/intro.html -->
+<!-- ELSEIF S_UNSETUPMODE eq 'run' -->
+	<!-- INCLUDE includes/unsetup/run.html -->
+<!-- ELSE -->
+<div class="errorbox">
+<h3>{L_WARNING}</h3>
+	<p>Sidemenu "{S_SIDEMENU}" is invalid or empty.</p>
+</div>
+<!-- ENDIF -->

@@ -1,0 +1,37 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<!-- IF S_ERROR -->
+<div class="errorbox">
+	<h3>{L_WARNING}</h3>
+	<p>{ERROR_MSG}</p>
+</div>
+<!-- ENDIF -->
+
+<!-- IF S_NOTICE -->
+<div class="errorbox notice">
+	<h3>{L_INFORMATION}</h3>
+	<p>{NOTICE_MSG}</p>
+</div>
+<!-- ENDIF -->
+
+<h1>{TITLE}</h1>
+
+<p>{TITLE_EXPLAIN}</p>
+
+<!-- IF S_TEMPLATETYPE eq 'pluginInfo' -->
+	<!-- INCLUDE includes/pluginInfo.html -->
+<!-- ELSEIF S_TEMPLATETYPE eq 'setup' -->
+	<!-- INCLUDE includes/setup.html -->
+<!-- ELSEIF S_TEMPLATETYPE eq 'unsetup' -->
+	<!-- INCLUDE includes/unsetup.html -->
+<!-- ELSEIF S_TEMPLATETYPE eq 'requirement' -->
+	<!-- INCLUDE includes/requirement.html -->
+<!-- ELSEIF S_TEMPLATETYPE eq 'setting' -->
+	<!-- INCLUDE includes/setting.html -->
+<!-- ELSE -->
+	<!-- INCLUDE includes/custom.html -->
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

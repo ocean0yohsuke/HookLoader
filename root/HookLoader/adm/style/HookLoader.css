@@ -1,0 +1,12 @@
+#content {
+    padding: 30px 10px;
+}
+
+.submit-buttons {
+	font-size: 1em;	
+}
+
+#tabs a span {
+ 	font-size: 1.2em;
+ 	text-transform: none;
+}
