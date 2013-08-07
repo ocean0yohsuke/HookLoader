@@ -1,12 +1,12 @@
 <?php
 
 $plugin = array(
-	'version' 				=> '1.0.0',
+	'version' 				=> '1.0.1',
 	'PHP-version' 		=> '5.2.0',
 	'PHP-extensions'		=> array('PDO', 'pdo_sqlite'),
 	'phpBB-version' 		=> '3.0.11',
 	'HookLoader-version' => '2.0.0',
-	'description'			=> '国をアクセス禁止できます',
+	'description'			=> 'アクセスしてきたユーザーを国名でアクセス禁止にできます',
 	'author-notes'		=> 'RIR の IPアドレスレコード のデータは 2013/05/30 のものです。<br />PHP拡張モジュール PDO と pdo_sqlite が必要です。',
 	'author'				=> array(
 		'name' 		=> 'ocean',

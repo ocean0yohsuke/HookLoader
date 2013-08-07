@@ -6,6 +6,9 @@ class IPtoCountry
 
 	function __construct($sqlite_dbpath)
 	{
+		if (file_exists($sqlite_dbpath) && !phpbb_is_writable($sqlite_dbpath)) {
+			throw new IPtoCountryException('The DB file does not exist or writable for ' . $sqlite_dbpath);
+		}
 		$this->setDBH($sqlite_dbpath);
 	}
 
@@ -23,7 +26,11 @@ class IPtoCountry
 		$sql = 'SELECT * FROM ip
 			LIMIT ? OFFSET ?';
 		$stmt = $this->DBH->prepare($sql);
-		$stmt->execute(array($limit, $offset));
+		$flag = $stmt->execute(array($limit, $offset));
+		if ($flag === FALSE) {
+			$errorInfo = $stmt->errorInfo();
+			throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+		}
 		$rowset = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
 		return $rowset;
@@ -33,7 +40,11 @@ class IPtoCountry
 	{
 		$sql = 'SELECT COUNT(*) AS rows_total 
 			FROM ip';
-		$stmt = $this->DBH->query($sql);
+		$flag = $stmt = $this->DBH->query($sql);
+		if ($flag === FALSE) {
+			$errorInfo = $stmt->errorInfo();
+			throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+		}
 		$row = $stmt->fetch();
 		
 		return $row['rows_total'];
@@ -42,7 +53,7 @@ class IPtoCountry
 	function toCountry($ip)
 	{
 		$ipv6full = IPtoCountryUtil::ipToHex($ip);
-		
+
 		if ($ipv6full === FALSE) {
 			throw new IPtoCountryException('Invalid IP Address was specified.');
 		}
@@ -59,11 +70,15 @@ class IPtoCountry
 		$sql = 'SELECT country FROM cache
 			WHERE ipv6full = ?';
 		$stmt = $this->DBH->prepare($sql);
-		$stmt->execute(array($ipv6full));
+		$flag = $stmt->execute(array($ipv6full));
+		if ($flag === FALSE) {
+			$errorInfo = $stmt->errorInfo();
+			throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+		}
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if ($row) {
-			$country = $result['cc'];
+			$country = $row['country'];
 			return $country;
 		} else {
 			if ($record = $this->findRecord($ipv6full)) {
@@ -73,11 +88,15 @@ class IPtoCountry
 				$country 	= IPtoCountryConst::UNKNOWN_COUNTRY;
 				$rir 		= IPtoCountryConst::UNKNOWN_RIR;
 			}
-				
+			
 			$sql = 'INSERT INTO cache (ipv6full, country, rir) values (?, ?, ?)';
 			$stmt = $this->DBH->prepare($sql);
 			$flag = $stmt->execute(array($ipv6full, $record['cc'], $record['registry']));
-
+			if ($flag === FALSE) {
+				$errorInfo = $stmt->errorInfo();
+				throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+			}
+			
 			return $country;
 		}
 	}
@@ -102,9 +121,13 @@ class IPtoCountry
 					WHERE type = 'IPv6' AND 0 < value AND value <= 32
 					AND ip_chunk0 <= ? AND ? < ip_chunkUpperLimit";
 				$stmt = $this->DBH->prepare($sql);
-				$stmt->execute(array(
-				$ip_chunks[0], $ip_chunks[0]
+				$flag = $stmt->execute(array(
+					$ip_chunks[0], $ip_chunks[0]
 				));
+				if ($flag === FALSE) {
+					$errorInfo = $stmt->errorInfo();
+					throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+				}
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				break;
 			case 1:
@@ -113,10 +136,14 @@ class IPtoCountry
 					AND ip_chunk0 = ?
 					AND ip_chunk1 <= ? AND ? < ip_chunkUpperLimit";
 				$stmt = $this->DBH->prepare($sql);
-				$stmt->execute(array(
-				$ip_chunks[0],
-				$ip_chunks[1], $ip_chunks[1]
+				$flag = $stmt->execute(array(
+					$ip_chunks[0],
+					$ip_chunks[1], $ip_chunks[1]
 				));
+				if ($flag === FALSE) {
+					$errorInfo = $stmt->errorInfo();
+					throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+				}
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				break;
 			case 2:
@@ -125,10 +152,14 @@ class IPtoCountry
 					AND ip_chunk0 = ? AND ip_chunk1 = ?
 					AND ip_chunk2 <= ? AND ? < ip_chunkUpperLimit";
 				$stmt = $this->DBH->prepare($sql);
-				$stmt->execute(array(
-				$ip_chunks[0], $ip_chunks[1],
-				$ip_chunks[2], $ip_chunks[2]
+				$flag = $stmt->execute(array(
+					$ip_chunks[0], $ip_chunks[1],
+					$ip_chunks[2], $ip_chunks[2]
 				));
+				if ($flag === FALSE) {
+					$errorInfo = $stmt->errorInfo();
+					throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+				}
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				break;
 			case 3:
@@ -137,10 +168,14 @@ class IPtoCountry
 					AND ip_chunk0 = ? AND ip_chunk1 = ? AND ip_chunk2 = ?
 					AND ip_chunk3 <= ? AND ? < ip_chunkUpperLimit";
 				$stmt = $this->DBH->prepare($sql);
-				$stmt->execute(array(
-				$ip_chunks[0], $ip_chunks[1], $ip_chunks[2],
-				$ip_chunks[3], $ip_chunks[3]
+				$flag = $stmt->execute(array(
+					$ip_chunks[0], $ip_chunks[1], $ip_chunks[2],
+					$ip_chunks[3], $ip_chunks[3]
 				));
+				if ($flag === FALSE) {
+					$errorInfo = $stmt->errorInfo();
+					throw new IPtoCountryException("[SQL Error] " . $errorInfo['2']);
+				}
 				$row = $stmt->fetch(PDO::FETCH_ASSOC);
 				break;
 		}

@@ -22,10 +22,19 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList
 	
 	function __construct()
 	{
+		global $cache;
+		
 		include_once PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.php';
-		$this->IPtoCountry = new IPtoCountry(PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.db');
-
-		$this->mode			= request_var('mode', 'intro');
+		try {
+			$this->IPtoCountry = new IPtoCountry(PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.db');
+		}
+		catch (IPtoCountryException $e) {
+			$e->getException();
+		}
+		
+		$default_mode = ($cache->get('_HookLoader_BanCountry_UserList'))? 'run' : 'intro';
+		
+		$this->mode			= request_var('mode', $default_mode);
 		$this->start 			= request_var('start', 0);
 		$this->sort_key 		= request_var('sk', self::DEFAULT_SORT_KEY);
 		$this->sort_dir 		= request_var('sd', self::DEFAULT_SORT_DIR);
@@ -61,7 +70,12 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList
 				$this->intro();
 				break;
 			case 'run' :
-				$this->run();
+				try {
+					$this->run();
+				}
+				catch (IPtoCountryException $e) {
+					$e->getException();
+				}
 				break;
 			default :
 				return;
@@ -70,12 +84,11 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList
 		$Panel->create_body();
 	}
 	
-	function intro()
+	private function intro()
 	{
-		
 	}
 	
-	function run()
+	private function run()
 	{
 		$this->BanCountryDB = new phpBB3_BanCountryDB($this->API->Plugin);
 		
@@ -202,8 +215,7 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList
 		if ($cached_data) {
 			$userlist = $cached_data['userlist'];
 		} else {
-			foreach ($userlist as $i => $row)
-			{
+			foreach ($userlist as $i => $row) {
 				$userlist[$i]['user_country'] = $this->IPtoCountry->toCountry($row['user_ip']);
 			}
 			$cache->put('_HookLoader_BanCountry_UserList', array(

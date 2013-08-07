@@ -12,19 +12,29 @@ class phpBB3_BanCountryIP
 		$this->DB = $DB;
 
 		include_once PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.php';
-		$this->IPtoCountry = new IPtoCountry(PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.db');
+		try {
+			$this->IPtoCountry = new IPtoCountry(PHPBB_HOOKLOADER_BANCOUNTRY_ROOT_PATH . 'include/IPtoCountry/IPtoCountry.db');
+		}
+		catch (IPtoCountryException $e) {
+			throw new phpBB3_BanCountryException($e->getMessage());
+		}
 	}
 	
 	function isBanned()
 	{
 		$countryListTypeIsAllow 	= $this->DB->countryListTypeIsAllow();
 		$countryList 	= $this->DB->countryList();
-		$country 		= $this->IPtoCountry->toCountry($this->IPAddress);
+		try {
+			$country 		= $this->IPtoCountry->toCountry($this->IPAddress);
+		}
+		catch (IPtoCountryException $e) {
+			throw new phpBB3_BanCountryException($e->getMessage());
+		}
 
 		if ((!$countryListTypeIsAllow && in_array($country, $countryList))
 		|| ($countryListTypeIsAllow && !in_array($country, $countryList)))
 		{
-			//return $this->isException();
+			//return $this->isExcepted();
 			return TRUE;
 		}
 
@@ -32,13 +42,13 @@ class phpBB3_BanCountryIP
 	}	
 	
 	/*
-	function isException()
+	function isExcepted()
 	{
-		$exceptionIPList = $this->DB->exceptionIPList();
-		foreach($exceptionIPList as $IPAddress)
+		$exceptIPList = $this->DB->exceptIPList();
+		foreach($exceptIPList as $IPAddress)
 		{
-			$isException = preg_match('#^' . str_replace('\*', '.*?', preg_quote($IPAddress, '#')) . '$#i', $this->IPAddress);
-			if ($isException) {
+			$isExcepted = preg_match('#^' . str_replace('\*', '.*?', preg_quote($IPAddress, '#')) . '$#i', $this->IPAddress);
+			if ($isExcepted) {
 				return TRUE;
 			}
 		}

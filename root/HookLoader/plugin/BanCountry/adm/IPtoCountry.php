@@ -22,7 +22,7 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_IPtoCountry
 	private function set_params()
 	{
 		$check_params = array(
-			'start'	=> array('start', 0),
+			//'start'	=> array('start', 0),
 			'ip'		=> array('ip', ''),
 		);
 		foreach ($check_params as $key => $call)
