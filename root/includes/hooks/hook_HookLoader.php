@@ -7,7 +7,8 @@ if(!defined('IN_PHPBB'))
 	exit;
 }
 
-if (isset($phpbb_root_path))
+if (isset($phpbb_root_path)
+ && !(defined('IN_INSTALL') && IN_INSTALL == true))
 {
 	require_once ($phpbb_root_path . "HookLoader/autoload.php");
 
