@@ -2,27 +2,56 @@
 
 class phpBB3_HookLoaderPlugin
 {
-	private $name;
+	private $plugin_name;
+	private $lang;
 	private $config;
 	private $Info;
-
+	
+	private $OFS;
 	private $Adm;
 	private $Hook;
 	
-	function __construct($name)
+	function __construct($plugin_name)
 	{
-		$this->name = $name;
-		$this->set_config();
-		$this->setInfo();
+		$this->plugin_name = $plugin_name;
+		$this->load_lang();
+		$this->make_config();
+		$this->Info = new phpBB3_HookLoaderPluginInfo($plugin_name);
+		
+		$this->OFS = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Plugin', 'Plugin', array(
+			'plugin_name'	=> $this->plugin_name,
+			'lang'		=> $this->lang,
+			'config'	=> $this->config,
+			'Info' 	=> $this->Info,
+		));
 	}
-
-	private function set_config()
+	private function load_lang() {
+		global $user;
+		$lang = array ();
+		if (defined ( 'ADMIN_START' )) {
+			if (is_file ( PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/adm/{$user->lang_name}.php" )) {
+				include PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/adm/{$user->lang_name}.php";
+			} elseif (is_file ( PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/adm/en.php}" )) {
+				include PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/adm/en.php}";
+			}
+		} else {
+			if (is_file ( PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/{$user->lang_name}.php" )) {
+				include PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/{$user->lang_name}.php";
+			} elseif (is_file ( PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/en.php}" )) {
+				include PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/language/en.php}";
+			}
+		}
+		$user->lang += $lang;
+		
+		$this->lang = $lang;
+	}
+	private function make_config()
 	{
 		global $config;
 
 		$this->config = array();
-		$prefix = 'HookLoader_' . $this->name . '_';
-		foreach($config as $key => $value)
+		$prefix = 'HookLoader_' . $this->plugin_name . '_';
+		foreach($config as $key => $value) 
 		{
 			if (preg_match("/^{$prefix}/i", $key)) {
 				$config_name = preg_replace("/^{$prefix}/i", '', $key);
@@ -30,96 +59,24 @@ class phpBB3_HookLoaderPlugin
 			}
 		}
 	}
-	private function setInfo()
-	{
-		$this->Info = new phpBB3_HookLoaderPluginInfo($this->name);
-	}
 	
-	private function setAdm()
-	{
-		$Adm = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Adm/Plugin', 'AdmPlugin', array(
-			'plugin_name' => $this->name,
-			'config' 		=> $this->config,
-			'Info' 		=> $this->Info,
-		));
-		$this->Adm = $Adm->Main();
-	}
-	private function setHook()
-	{
-		$Hook = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Hook/Plugin', 'HookPlugin', array(
-			'plugin_name' => $this->name,
-			'config' 		=> $this->config,
-			'Info' 		=> $this->Info,
-		));
-		$this->Hook = $Hook->Main();
-	}
 	function Adm()
 	{
-		if (!isset($this->Adm)) {
-			$this->setAdm();
-		}
-		return $this->Adm;
+		return $this->OFS->Adm();
 	}
 	function Hook()
 	{
-		if (!isset($this->Hook)) {
-			$this->setHook();
-		}
-		return $this->Hook;
-	}
-}
-
-class phpBB3_HookLoaderPlugin_Base extends ObjectFileSystemFile
-{
-	public $plugin_name;
-	public $Info;
-	public $config;
-
-	function set_config($config_name, $config_value, $is_dynamic = FALSE)
-	{
-		global $config, $db;
-
-		$prefix = 'HookLoader_' . $this->plugin_name . '_';
-		if ($config_value === NULL)
-		{
-			unset($this->config[$config_name]);
-
-			$sql = 'DELETE FROM ' . CONFIG_TABLE . " WHERE config_name = '" . $db->sql_escape($prefix . $config_name) . "'";
-			$db->sql_query($sql);
-		}
-		else
-		{
-			$this->config[$config_name] = $config_value;
-
-			set_config($prefix . $config_name, $config_value, $is_dynamic);
-		}
+		return $this->OFS->Hook();
 	}
 	
 	function isSetup()
 	{
-		if (!isset($this->config['version'])) {
-			return FALSE;
-		}
-		$version_config = $this->config['version'];
-		$version_info	= $this->Info->plugin('version');
-		if (!isset($version_info)) {
-			return FALSE;
-		}
-		return ($version_info === $version_config);
+		return $this->Adm()->isSetup();
 	}
-	
 	function isEnabled()
 	{
-		if (!isset($this->config['version'])) {
-			return FALSE;
-		}
-		$version = $this->config['version'];
-		if (!isset($this->config['enabled'])) {
-			return TRUE;
-		}
-		$enabled = $this->config['enabled'];
-		return ($enabled) ? TRUE : FALSE;
-	}	
+		return $this->Adm()->isEnabled();
+	}
 }
 
 class phpBB3_HookLoaderPluginInfo
@@ -135,10 +92,10 @@ class phpBB3_HookLoaderPluginInfo
 		$this->plugin_name = $plugin_name;
 	}
 	
-	private function set_plugin()
+	private function make_plugin()
 	{
 		if (!is_file(PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/info.php")) {
-			return;
+			throw new phpBB3_HookLoaderException("The file of information (info.php) for plugin '{$this->plugin_name}' is missing.");
 		}
 		require PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/info.php";
 
@@ -160,7 +117,7 @@ class phpBB3_HookLoaderPluginInfo
 		
 		$this->plugin = $plugin;
 	}
-	private function set_adm()
+	private function make_adm()
 	{
 		if (!is_file(PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/info.php")) {
 			return;
@@ -168,7 +125,7 @@ class phpBB3_HookLoaderPluginInfo
 		require PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/info.php";
 		$this->adm = $adm;
 	}
-	private function set_config_default()
+	private function make_config_default()
 	{
 		if (!is_file(PHPBB_HOOKLOADER_PLUGIN_ROOT_PATH . "{$this->plugin_name}/info.php")) {
 			return;
@@ -180,7 +137,7 @@ class phpBB3_HookLoaderPluginInfo
 	function plugin($key = NULL)
 	{
 		if (!isset($this->plugin)) {
-			$this->set_plugin();
+			$this->make_plugin();
 		}
 
 		if (!isset($key)) {
@@ -195,7 +152,7 @@ class phpBB3_HookLoaderPluginInfo
 	function adm($key = NULL)
 	{
 		if (!isset($this->adm)) {
-			$this->set_adm();
+			$this->make_adm();
 		}
 
 		if (!isset($key))	{
@@ -210,7 +167,7 @@ class phpBB3_HookLoaderPluginInfo
 	function config_default($key = NULL)
 	{
 		if (!isset($this->config_default)) {
-			$this->set_config_default();
+			$this->make_config_default();
 		}
 
 		if (!isset($key))	{

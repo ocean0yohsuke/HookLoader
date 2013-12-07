@@ -13,7 +13,7 @@ require_once($phpbb_root_path . "HookLoader/autoload.php");
 
 try {
 	$phpBB3_HookLoader = new phpBB3_HookLoaderMain();
-	$phpBB3_HookLoaderAdm = $phpBB3_HookLoader->Adm()->HLP();
+	$phpBB3_HookLoader->Adm_run();
 } 
 catch (ObjectFileSystemException $e) {
 	if (defined('DEBUG')) {

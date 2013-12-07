@@ -6,8 +6,11 @@ class IPtoCountry
 
 	function __construct($sqlite_dbpath)
 	{
-		if (file_exists($sqlite_dbpath) && !phpbb_is_writable($sqlite_dbpath)) {
-			throw new IPtoCountryException('The DB file does not exist or writable at ' . $sqlite_dbpath);
+		if (!file_exists($sqlite_dbpath)) {
+			throw new IPtoCountryException('DB file does not exist at ' . $sqlite_dbpath);
+		}
+		if (!phpbb_is_writable($sqlite_dbpath)) {
+			throw new IPtoCountryException('DB file is not writable at ' . $sqlite_dbpath);
 		}
 		$this->setDBH($sqlite_dbpath);
 	}

@@ -13,17 +13,17 @@ class phpBB3_HookLoaderAPI
 	
 	function Hook($hook_name)
 	{
-		$Hook = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Hook/API', 'HookAPI', array(
-			'Plugin' 		=> $this->Plugin->Hook(),
+		$Hook = phpBB3_HookLoaderUtil::ObjectFileSystem('class/API/Hook', 'APIHook', array(
+			'Plugin' 	=> $this->Plugin->Hook(),
 			'hook_name'	=> $hook_name,
 		));
 		return $Hook;
 	}
 	function Adm($adm_name)
 	{
-		$Adm = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Adm/API', 'AdmAPI', array(
-			'Plugin' 		=> $this->Plugin->Adm(),
-			'adm_name'		=> $adm_name,
+		$Adm = phpBB3_HookLoaderUtil::ObjectFileSystem('class/API/Adm', 'APIAdm', array(
+			'Plugin' 	=> $this->Plugin->Adm(),
+			'adm_name'	=> $adm_name,
 		));
 		return $Adm;
 	}

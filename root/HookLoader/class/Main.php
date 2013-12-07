@@ -2,7 +2,8 @@
 
 class phpBB3_HookLoaderMain
 {
-	private $HookLoaderPluginAdm;
+	private $HookLoaderPlugin;
+	private $OFS;
 
 	function __construct()
 	{
@@ -13,35 +14,42 @@ class phpBB3_HookLoaderMain
 			include_once(PHPBB_HOOKLOADER_ROOT_PATH . 'include/FileSystemOOP/MethodFileSystem.php');
 		}
 		
-		$HookLoaderPlugin = new phpBB3_HookLoaderPlugin('HookLoader');
-		$this->HookLoaderPluginAdm = $HookLoaderPlugin->Adm();
-		
-		return $this;
+		$this->HookLoaderPlugin = new phpBB3_HookLoaderPlugin('HookLoader');
+		$this->OFS = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Main', 'Main');
 	}
 
+	/**
+	* ACP Index
+	*/
+	function acpi()
+	{
+		return $this->OFS->ACPI();
+	}
+	
 	function Hook()
 	{
-		$Hook = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Hook/Main', 'HookMain');
-		return $Hook;
+		return $this->OFS->Hook();
 	}
-	function Adm()
+	
+	function Adm_run()
 	{
-		$Adm = phpBB3_HookLoaderUtil::ObjectFileSystem('class/Adm/Main', 'AdmMain');
-		return $Adm;
+		$this->OFS->Adm()->run();
 	}
-
-	function isEnabled($hook_type = NULL)
+	
+	
+	function hookIsEnabled($hook_type)
 	{
-		if (!isset($hook_type)) {
-			return $this->HookLoaderPluginAdm->isEnabled();
-		}
-		if (isset($this->HookLoaderPluginAdm->config[$hook_type . '_enabled'])) {
-			$enabled = $this->HookLoaderPluginAdm->config[$hook_type . '_enabled'];
+		if (isset($this->HookLoaderPlugin->Hook()->config[$hook_type . '_enabled'])) {
+			$enabled = $this->HookLoaderPlugin->Hook()->config[$hook_type . '_enabled'];
 		}
 		return (isset($enabled) && $enabled) ? TRUE : FALSE;
 	}
+	function isEnabled($hook_type = NULL)
+	{
+		return $this->HookLoaderPlugin->isEnabled();	
+	}
 	function isSetup()
 	{
-		$this->HookLoaderPluginAdm->isSetup();
+		return $this->HookLoaderPlugin->isSetup();
 	}
 }

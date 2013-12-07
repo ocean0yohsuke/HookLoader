@@ -23,12 +23,12 @@
  			</author>
 		</author-group>
 
-		<mod-version>2.0.0a</mod-version>
+		<mod-version>2.0.0b</mod-version>
 
 		<installation>
 			<level>easy</level>
 			<time>60</time>
-			<target-version>3.0.11</target-version>
+			<target-version>3.0.12</target-version>
 		</installation>
 
 		<history>

@@ -15,11 +15,11 @@ if (isset($phpbb_root_path)
 	try {
 		$phpBB3_HookLoader = new phpBB3_HookLoaderMain();
 		if (defined('ADMIN_START'))	{
-			$phpBB3_HookLoader->Adm()->ACP();
+			$phpBB3_HookLoader->acpi();
 		}
 		if ($phpBB3_HookLoader->isEnabled())
 		{
-			$phpBB3_HookLoader_Hook = $phpBB3_HookLoader->Hook()->Run();
+			$phpBB3_HookLoader_Hook = $phpBB3_HookLoader->Hook();
 			if ($phpBB3_HookLoader->isEnabled('phpbb_user_session_handler')) {
 				$phpbb_hook->register('phpbb_user_session_handler', array(new phpBB3_hook_HookLoader($phpBB3_HookLoader_Hook, 'phpbb_user_session_handler'), 'main'));
 			}
@@ -68,25 +68,6 @@ class phpBB3_hook_HookLoader
 
 	function main()
 	{
-		try {
-			$this->Hook->run($this->hook_type);
-		}
-		catch (ObjectFileSystemException $e) {
-			if (defined('DEBUG')) {
-				$e->getException();
-			} else {
-				trigger_error('[ObjectFileSystem Error] ' . $e->getMessage(), E_USER_ERROR);
-			}
-		}
-		catch (MethodFileSystemException $e) {
-			if (defined('DEBUG')) {
-				$e->getException();
-			} else {
-				trigger_error('[MethodFileSystem Error] ' . $e->getMessage(), E_USER_ERROR);
-			}
-		}
-		catch (phpBB3_HookLoaderException $e) {
-			$e->getException();
-		}
+		$this->Hook->run($this->hook_type);
 	}
 }

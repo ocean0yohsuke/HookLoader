@@ -4,7 +4,7 @@ class phpBB3_BanCountryBase
 {
 	protected $Plugin;
 	
-	function __construct(phpBB3_HookLoaderPlugin_Base $Plugin)
+	function __construct($Plugin)
 	{
 		$this->Plugin = $Plugin;
 	}
