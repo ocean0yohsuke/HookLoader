@@ -33,9 +33,8 @@ class phpBB3_HookLoaderAdmMain_HLP_PanelPage_unsetup extends phpBB3_HookLoaderAd
 		add_form_key('unsetup_run');
 
 		$template->assign_vars(array(
-			'TITLE'				=> $this->lang['SETUPPANEL_UNSETUP_TITLE'],
-			'TITLE_EXPLAIN'		=> sprintf($this->lang['SETUPPANEL_UNSETUP_MESSAGE'], $this->PluginAdm->plugin_name, $this->PluginAdm->Info->plugin('version')),
-			
+			'TITLE'		=> $this->lang['SETUPPANEL_UNSETUP_TITLE'],
+			'TITLE_EXPLAIN'	=> sprintf($this->lang['SETUPPANEL_UNSETUP_MESSAGE'], $this->PluginAdm->plugin_name, $this->PluginAdm->Info->plugin('version')),
 			'U_ACTION'	=> append_sid('index.php', "tabmenu={$this->PluginAdm->plugin_name}&amp;sidemenu=unsetup&amp;mode=run"),
 		));
 	}
@@ -58,7 +57,7 @@ class phpBB3_HookLoaderAdmMain_HLP_PanelPage_unsetup extends phpBB3_HookLoaderAd
 		$message .= implode('<br />', $PluginSetup->messages());
 
 		$template->assign_vars(array(
-			'MESSAGE'		=> $message,
+			'MESSAGE'	=> $message,
 			'U_GOTO_MENU'	=> append_sid('index.php', "tabmenu={$this->PluginAdm->plugin_name}"),
 		));
 	}

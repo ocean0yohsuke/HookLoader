@@ -77,7 +77,7 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList {
 		$this->BanCountryDB = new phpBB3_BanCountryDB ( $this->API->Plugin );
 		
 		global $db, $user, $cache;
-		global $phpbb_admin_root, $phpbb_root_path, $phpEx;
+		global $phpbb_root_path, $phpEx;
 		
 		$userlist = $this->draw_userlist ();
 		
@@ -117,7 +117,7 @@ class phpBB3_HookLoaderPluginAdm_BanCountry_UserList {
 					'IP' => $row ['user_ip'],
 					
 					'U_USER_COUNTRY' => $sort_url . '&amp;user_country=' . $row ['user_country'],
-					'U_USER_IP' => append_sid ( $phpbb_admin_root . 'index.php?', array (
+					'U_USER_IP' => append_sid ( $phpbb_root_path . 'adm/index.php?', array (
 							'i' => 'users',
 							'mode' => 'overview',
 							'action' => 'whois',

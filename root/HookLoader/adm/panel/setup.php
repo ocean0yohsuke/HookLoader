@@ -13,8 +13,8 @@ class phpBB3_HookLoaderAdmMain_HLP_PanelPage_setup extends phpBB3_HookLoaderAdmM
 		$this->php_extensions_check($error);
 		if (sizeof($error)) {
 			$template->assign_vars(array(
-				'S_ERROR'			=> TRUE,
-				'ERROR_MSG'		=> implode('<br />', $error),
+				'S_ERROR'	=> TRUE,
+				'ERROR_MSG'	=> implode('<br />', $error),
 			));
 			return;
 		}
@@ -93,8 +93,8 @@ class phpBB3_HookLoaderAdmMain_HLP_PanelPage_setup extends phpBB3_HookLoaderAdmM
 		add_form_key('setup_run');
 		
 		$template->assign_vars(array(
-			'TITLE'				=> $this->lang['SETUPPANEL_SETUP_TITLE'],
-			'TITLE_EXPLAIN'		=> sprintf($this->lang['SETUPPANEL_SETUP_MESSAGE'], $this->PluginAdm->plugin_name, $this->PluginAdm->Info->plugin('version')),
+			'TITLE'		=> $this->lang['SETUPPANEL_SETUP_TITLE'],
+			'TITLE_EXPLAIN'	=> sprintf($this->lang['SETUPPANEL_SETUP_MESSAGE'], $this->PluginAdm->plugin_name, $this->PluginAdm->Info->plugin('version')),
 		
 			'U_ACTION'		=> append_sid('index.php', "tabmenu={$this->PluginAdm->plugin_name}&amp;sidemenu=setup&amp;mode=run"),
 		));
@@ -119,7 +119,7 @@ class phpBB3_HookLoaderAdmMain_HLP_PanelPage_setup extends phpBB3_HookLoaderAdmM
 		$message .= implode('<br />', $PluginSetup->messages());
 		
 		$template->assign_vars(array(
-			'MESSAGE'		=> $message,
+			'MESSAGE'	=> $message,
 			'U_GOTO_MENU'	=> append_sid('index.php', "tabmenu={$this->PluginAdm->plugin_name}"),
 		));
 	}
