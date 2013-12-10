@@ -22,10 +22,10 @@ class phpBB3_BanCountryIP
 	
 	function isBanned()
 	{
-		$countryListTypeIsAllow 	= $this->DB->countryListTypeIsAllow();
-		$countryList 	= $this->DB->countryList();
+		$countryListTypeIsAllow = $this->DB->countryListTypeIsAllow();
+		$countryList = $this->DB->countryList();
 		try {
-			$country 		= $this->IPtoCountry->toCountry($this->IPAddress);
+			$country = $this->IPtoCountry->toCountry($this->IPAddress);
 		}
 		catch (IPtoCountryException $e) {
 			throw new phpBB3_BanCountryException($e->getMessage());

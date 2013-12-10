@@ -53,7 +53,7 @@ class phpBB3_BanCountryClient extends phpBB3_BanCountryBase
 		}
 
 		global $user;
-		if (isset($user))	{
+		if (isset($user)) {
 			if (!empty($user->ip)) {
 				// IP address user is currently browsing under
 				$list[] = $user->ip;

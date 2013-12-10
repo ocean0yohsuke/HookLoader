@@ -28,8 +28,7 @@ class phpBB3_BanCountryMain extends phpBB3_BanCountryBase
 	function isBannedYourself()
 	{
 		$IPAddressList = $this->Client->IPAddressList();
-		foreach ($IPAddressList as $IPAddress)
-		{
+		foreach ($IPAddressList as $IPAddress) {
 			if ($this->IP($IPAddress)->isBanned())	{
 				return TRUE;
 			}
@@ -40,8 +39,7 @@ class phpBB3_BanCountryMain extends phpBB3_BanCountryBase
 	function filter()
 	{
 		$IPAddressList = $this->Client->IPAddressList();
-		foreach ($IPAddressList as $IPAddress)
-		{
+		foreach ($IPAddressList as $IPAddress) {
 			if ($this->IP($IPAddress)->isBanned()) {
 				$this->display_null();
 			}

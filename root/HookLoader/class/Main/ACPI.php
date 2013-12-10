@@ -5,7 +5,7 @@
 */
 class phpBB3_HookLoaderMain_ACPI extends ObjectFileSystemFile
 {
-	function construct()
+	function main()
 	{
 		global $phpbb_root_path, $phpbb_hook;
 
@@ -13,10 +13,6 @@ class phpBB3_HookLoaderMain_ACPI extends ObjectFileSystemFile
 			$phpbb_hook->register('phpbb_user_session_handler', array($this, 'load_lang'));
 			$phpbb_hook->register(array('template', 'display'), array($this, 'create_sidemenu'));
 		}
-	}
-
-	function main()
-	{
 	}
 	
 	function load_lang()

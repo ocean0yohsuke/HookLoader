@@ -68,6 +68,25 @@ class phpBB3_hook_HookLoader
 
 	function main()
 	{
-		$this->Hook->run($this->hook_type);
+		try {
+			$this->Hook->run($this->hook_type);
+		}
+		catch (ObjectFileSystemException $e) {
+			if (defined('DEBUG')) {
+				$e->getException();
+			} else {
+				trigger_error('[ObjectFileSystem Error] ' . $e->getMessage(), E_USER_ERROR);
+			}
+		}
+		catch (MethodFileSystemException $e) {
+			if (defined('DEBUG')) {
+				$e->getException();
+			} else {
+				trigger_error('[MethodFileSystem Error] ' . $e->getMessage(), E_USER_ERROR);
+			}
+		}
+		catch (phpBB3_HookLoaderException $e) {
+			$e->getException();
+		}
 	}
 }
