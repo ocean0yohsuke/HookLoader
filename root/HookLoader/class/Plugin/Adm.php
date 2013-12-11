@@ -1,14 +1,17 @@
 <?php
 class phpBB3_HookLoaderPlugin_Adm extends phpBB3_HookLoaderPlugin_AdmBase {
-	private $flag_set_template = FALSE;
-	
+	private $flag_assign_template_vars = FALSE;
 	function main() {
-		if ($this->flag_set_template == FALSE) {
+		$this->assign_template_vars ();
+	}
+	private function assign_template_vars() {
+		if ($this->flag_assign_template_vars == FALSE) {
 			global $template;
 			$template->assign_vars ( array (
 					'HOOKLOADER_PLUGIN_TITLE' => $this->plugin_name,
-					'HOOKLOADER_PLUGIN_VERSION' => $this->Info->plugin ( 'version' )
+					'HOOKLOADER_PLUGIN_VERSION' => $this->Info->plugin ( 'version' ) 
 			) );
+			$this->flag_assign_template_vars = TRUE;
 		}
 	}
 	function haveIntro() {
