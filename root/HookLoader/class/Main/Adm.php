@@ -81,7 +81,7 @@ class phpBB3_HookLoaderMain_Adm extends ObjectFileSystemFile
 		// common
 		$template->assign_vars(array(
 				'U_HOOKLOADER_INDEX'	=> append_sid($phpbb_root_path . 'HookLoader/adm/index.php'),
-				'U_ADM_INDEX' 		=> append_sid($phpbb_root_path . 'adm/index.' . $phpEx),
+				'U_ADM_INDEX' 	=> append_sid($phpbb_root_path . 'adm/index.' . $phpEx),
 		));
 
 		// Output page

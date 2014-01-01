@@ -27,28 +27,28 @@ $lang = array_merge($lang, array(
 //
 // Config
 //
-'CONFIG' 			=> 'コンフィグ',
+'CONFIG' 		=> 'コンフィグ',
 'CONFIG_EXPLAIN'	=> 'ここでは HookLoader のコンフィグを設定できます。',
-'GENERAL_SETTINGS'				=> '一般設定',
-'HOOKLOADER_ENABLED'				=> 'HookLoader を有効にする',
+'GENERAL_SETTINGS'			=> '一般設定',
+'HOOKLOADER_ENABLED'			=> 'HookLoader を有効にする',
 'HOOKLOADER_ENABLED_EXPLAIN'	=> '無効にした場合、プラグインの hook は全て無効化されます',
-'HOOK_SETTINGS'									=> 'フック設定',
-'PHPBB_USER_SESSION_HANDLER_ENABLED'			=> 'phpbb_user_session_handler を有効にする',
+'HOOK_SETTINGS'					=> 'フック設定',
+'PHPBB_USER_SESSION_HANDLER_ENABLED'		=> 'phpbb_user_session_handler を有効にする',
 'PHPBB_USER_SESSION_HANDLER_ENABLED_EXPLAIN'	=> '',
-'TEMPLATEDISPLAY_ENABLED'						=> 'template_display を有効にする',
-'TEMPLATEDISPLAY_ENABLED_EXPLAIN'				=> '',
-'APPENDSID_ENABLED'								=> 'append_sid を有効にする',
-'APPENDSID_ENABLED_EXPLAIN'						=> '',
-'EXITHANDLER_ENABLED'							=> 'exit_handler を有効にする',
-'EXITHANDLER_ENABLED_EXPLAIN'					=> '',
+'TEMPLATEDISPLAY_ENABLED'		=> 'template_display を有効にする',
+'TEMPLATEDISPLAY_ENABLED_EXPLAIN'	=> '',
+'APPENDSID_ENABLED'			=> 'append_sid を有効にする',
+'APPENDSID_ENABLED_EXPLAIN'		=> '',
+'EXITHANDLER_ENABLED'		=> 'exit_handler を有効にする',
+'EXITHANDLER_ENABLED_EXPLAIN'	=> '',
 
 //
 // Cache
 //
-'CACHE' 						=> 'キャッシュ',
+'CACHE' 					=> 'キャッシュ',
 'CACHE_EXPLAIN'				=> '',
 'HOOKLOADER_STATISTIC_RESYNC_OPTIONS'	=> 'データの同期',
-'HOOKLOADER_PURGE_CACHE'					=> 'キャッシュの消去',
+'HOOKLOADER_PURGE_CACHE'			=> 'キャッシュの消去',
 'HOOKLOADER_PURGE_CACHE_EXPLAIN'		=> 'HookLoader のキャッシュ情報を全て消去します。テンプレートキャッシュファイルと hook キャッシュファイルの消去を含みます。',
 
 //

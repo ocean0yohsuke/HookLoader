@@ -14,9 +14,9 @@ class phpBB3_HookLoaderPluginAdm_OceanHooks_CustomAsset
 		*		rpath (relative), rwpath (realtive, writable), path (relative path, but able to escape the root), wpath (writable)
 		*/
 		$Panel->set_display_vars(array(
-			'legend1'		=> 'GENERAL_SETTINGS',
+			'legend1' => 'GENERAL_SETTINGS',
 				'enabled' => array('lang' => 'CUSTOMASSET_ENABLED',	'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
-			'legend2'		=> 'CUSTOMASSET_SETTINGS',
+			'legend2' => 'CUSTOMASSET_SETTINGS',
 				'CustomAsset_lang_enabled'		=> array('lang' => 'CUSTOMASSET_LANG_ENABLED',		'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 				'CustomAsset_template_enabled'	=> array('lang' => 'CUSTOMASSET_TEMPLATE_ENABLED',	'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 		));

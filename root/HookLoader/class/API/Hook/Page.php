@@ -1,22 +1,17 @@
 <?php
-
-class phpBB3_HookLoaderAPIHook_Page extends phpBB3_HookLoaderAPIHook_Base
-{
+class phpBB3_HookLoaderAPIHook_Page extends phpBB3_HookLoaderAPIHook_Base {
 	private $inBoard = FALSE;
 	private $inACP = FALSE;
 	private $inUCP = FALSE;
 	private $inMCP = FALSE;
 	private $name = '';
-	
-	function construct()
-	{
+	function construct() {
 		global $phpbb_root_path;
 		
-		$this->name = basename($_SERVER['SCRIPT_NAME']);
+		$this->name = basename ( $_SERVER ['SCRIPT_NAME'] );
 		
 		if ($phpbb_root_path === './') {
-			switch ($this->name)
-			{
+			switch ($this->name) {
 				case 'ucp.php' :
 					$this->inUCP = TRUE;
 					break;
@@ -26,37 +21,25 @@ class phpBB3_HookLoaderAPIHook_Page extends phpBB3_HookLoaderAPIHook_Base
 				default :
 					$this->inBoard = TRUE;
 			}
-		} elseif (defined('ADMIN_START')) {
+		} elseif (defined ( 'ADMIN_START' )) {
 			$this->inACP = TRUE;
 		}
 	}
-	
-	function main()
-	{
+	function main() {
 	}
-	
-	function inBoard()
-	{
+	function inBoard() {
 		return $this->inBoard;
 	}
-	
-	function inACP()
-	{
+	function inACP() {
 		return $this->inACP;
 	}
-	
-	function inUCP()
-	{
+	function inUCP() {
 		return $this->inUCP;
 	}
-	
-	function inMCP()
-	{
+	function inMCP() {
 		return $this->inMCP;
 	}
-
-	function name()
-	{
+	function name() {
 		return $this->name;
 	}
 }

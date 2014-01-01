@@ -27,8 +27,8 @@ $lang = array_merge($lang, array(
 //
 // Common
 //
-'RETURN_PAGE'			=> '%s元のページに戻る%s',
-'FORM_INVALID'		=> '送信されたフォームが不正です',
+'RETURN_PAGE'		=> '%s元のページに戻る%s',
+'FORM_INVALID'	=> '送信されたフォームが不正です',
 
 //
 // Intro
